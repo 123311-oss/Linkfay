@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Linkfay — Converta seu link do Mercado Livre. Concorra a R$500.</title>
+<meta name="description" content="Converta links do Mercado Livre em segundos e participe da promoção.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#12141c;
+    --ink-soft:#4b4f5c;
+    --bg:#f6f7fb;
+    --surface:#ffffff;
+    --line:#e3e5ee;
+    --blue:#2f5dff;
+    --blue-deep:#1c3ec4;
+    --teal:#0fae8e;
+    --ml-yellow:#ffd100;
+    --danger:#e5484d;
+    --radius-sm:10px;
+    --radius-md:16px;
+    --radius-lg:28px;
+    --shadow:0 1px 2px rgba(18,20,28,.04), 0 12px 32px -16px rgba(18,20,28,.18);
+    --maxw:1160px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter',system-ui,sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{
+    font-family:'Space Grotesk',sans-serif;
+    letter-spacing:-0.02em;
+    margin:0;
+  }
+  a{color:inherit;}
+  img,svg{display:block;max-width:100%;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px;}
+  section{padding:120px 0;}
+  @media(max-width:720px){ section{padding:72px 0;} .wrap{padding:0 20px;} }
+
+  a:focus-visible, button:focus-visible, input:focus-visible{
+    outline:2px solid var(--blue);
+    outline-offset:3px;
+  }
+  @media(prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important;}
+  }
+
+  /* ---------- NAV ---------- */
+  header.nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(246,247,251,.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav .wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    height:72px;
+  }
+  .logo{
+    display:flex; align-items:center; gap:9px;
+    font-family:'Space Grotesk'; font-weight:700; font-size:19px;
+  }
+  .logo-mark{width:26px;height:26px;flex:none;}
+  .nav-links{display:flex; gap:32px; font-size:14.5px; font-weight:500; color:var(--ink-soft);}
+  .nav-links a{text-decoration:none; transition:color .15s;}
+  .nav-links a:hover{color:var(--ink);}
+  .nav-cta{
+    background:var(--ink); color:#fff; border:none; border-radius:999px;
+    padding:10px 20px; font-size:14px; font-weight:600; cursor:pointer;
+    font-family:inherit;
+  }
+  @media(max-width:780px){ .nav-links{display:none;} }
+
+  /* ---------- HERO ---------- */
+  .hero{ padding-top:76px; padding-bottom:60px;}
+  .hero .wrap{
+    display:grid; grid-template-columns:1.05fr .95fr; gap:64px; align-items:center;
+  }
+  @media(max-width:960px){ .hero .wrap{grid-template-columns:1fr; gap:44px;} }
+
+  .kicker{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:13.5px; color:var(--ink-soft); font-weight:500;
+    background:var(--surface); border:1px solid var(--line);
+    padding:7px 14px 7px 10px; border-radius:999px; margin-bottom:22px;
+  }
+  .kicker .dot{width:7px;height:7px;border-radius:50%;background:var(--teal);}
+
+  .hero h1{
+    font-size:clamp(34px,4.6vw,54px);
+    font-weight:700; line-height:1.06; color:var(--ink);
+  }
+  .hero h1 .prize{ color:var(--blue); }
+  .hero p.lede{
+    margin-top:22px; font-size:18px; color:var(--ink-soft); max-width:46ch;
+  }
+
+  .trust-row{ display:flex; gap:22px; margin-top:30px; flex-wrap:wrap; }
+  .trust-row span{
+    font-size:13.5px; color:var(--ink-soft); display:flex; align-items:center; gap:7px;
+  }
+  .trust-row svg{width:16px;height:16px;flex:none;}
+
+  /* converter card */
+  .converter{
+    background:var(--surface); border:1px solid var(--line);
+    border-radius:var(--radius-lg); box-shadow:var(--shadow);
+    padding:30px;
+  }
+  .platform-badge{
+    display:flex; align-items:center; gap:10px;
+    padding:13px 16px; border-radius:var(--radius-sm);
+    border:1.5px solid #f2e39a; background:#fff8dd;
+    font-family:'Space Grotesk'; font-weight:600; font-size:15px; color:var(--ink);
+    margin-bottom:20px;
+  }
+  .platform-badge svg{width:18px;height:18px;flex:none;}
+
+  .field-label{ font-size:13.5px; font-weight:600; color:var(--ink-soft); margin-bottom:8px; display:block; }
+  .link-input-row{ display:flex; gap:10px; }
+  input.link-input{
+    flex:1; min-width:0; padding:14px 16px; border-radius:var(--radius-sm);
+    border:1.5px solid var(--line); font-size:15px; font-family:inherit; color:var(--ink);
+    background:#fbfbfd;
+  }
+  input.link-input::placeholder{ color:#9aa0b0; }
+  input.link-input:focus{ border-color:var(--blue); background:#fff; }
+
+  .btn-primary{
+    margin-top:14px; width:100%;
+    background:linear-gradient(135deg,var(--blue),var(--blue-deep));
+    color:#fff; border:none; border-radius:var(--radius-sm);
+    padding:15px 18px; font-size:15.5px; font-weight:600; font-family:inherit;
+    cursor:pointer; transition:transform .12s, box-shadow .12s;
+    box-shadow:0 10px 24px -10px rgba(47,93,255,.55);
+  }
+  .btn-primary:hover{ transform:translateY(-1px); }
+  .btn-primary:active{ transform:translateY(0); }
+  .btn-primary:disabled{ opacity:.55; cursor:not-allowed; transform:none; }
+
+  .error-msg{
+    margin-top:10px; font-size:13.5px; color:var(--danger); display:none;
+  }
+  .error-msg.show{ display:block; }
+
+  .result{
+    margin-top:18px; padding:16px; border-radius:var(--radius-sm);
+    background:#effaf6; border:1px solid #bfe9dc;
+    display:none;
+  }
+  .result.show{ display:block; }
+  .result .ok-row{ display:flex; align-items:center; gap:8px; font-weight:600; font-size:14px; color:#0d7a63; margin-bottom:10px;}
+  .result .ok-row svg{width:16px;height:16px;}
+  .result-link-row{ display:flex; gap:8px; }
+  .result-link{
+    flex:1; min-width:0; background:#fff; border:1px solid #d3ecdf; border-radius:8px;
+    padding:11px 12px; font-size:13.5px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+    font-family:ui-monospace,monospace; color:var(--ink-soft);
+  }
+  .copy-btn{
+    background:var(--ink); color:#fff; border:none; border-radius:8px;
+    padding:0 16px; font-size:13.5px; font-weight:600; cursor:pointer; font-family:inherit;
+  }
+  .promo-nudge{ margin-top:12px; font-size:13px; color:var(--ink-soft); }
+  .promo-nudge a{ color:var(--blue); font-weight:600; text-decoration:none; }
+
+  /* ---------- STEPS ---------- */
+  .steps-head{ max-width:640px; margin-bottom:56px; }
+  .eyebrow{ font-size:14px; font-weight:600; color:var(--blue); margin-bottom:10px; }
+  .steps-head h2{ font-size:clamp(28px,3.4vw,40px); }
+  .steps-head p{ margin-top:14px; color:var(--ink-soft); font-size:16.5px; }
+
+  .steps-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:var(--radius-md); overflow:hidden; }
+  @media(max-width:760px){ .steps-grid{ grid-template-columns:1fr; } }
+  .step{ background:var(--surface); padding:30px 26px; }
+  .step .num{ font-family:'Space Grotesk'; font-weight:700; font-size:14px; color:var(--blue); }
+  .step h3{ font-size:17px; margin-top:14px; font-weight:600; }
+  .step p{ margin-top:8px; font-size:14.5px; color:var(--ink-soft); }
+
+  /* ---------- SORTEIO ---------- */
+  .sorteio{ background:var(--ink); color:#fff; border-radius:var(--radius-lg); }
+  .sorteio-inner{
+    display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center;
+    padding:64px 56px;
+  }
+  @media(max-width:900px){ .sorteio-inner{ grid-template-columns:1fr; padding:48px 28px; } }
+  .sorteio h2{ font-size:clamp(26px,3.2vw,36px); color:#fff; }
+  .sorteio p.lede{ margin-top:16px; color:#c3c6d4; font-size:16px; max-width:44ch; }
+  .prize-tag{
+    display:inline-block; margin-top:24px; padding:10px 18px; border-radius:999px;
+    background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.16);
+    font-family:'Space Grotesk'; font-weight:600; font-size:14.5px;
+  }
+  .prize-tag b{ color:var(--ml-yellow); }
+  .next-draw{
+    background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.12);
+    border-radius:var(--radius-md); padding:26px;
+  }
+  .next-draw .label{ font-size:13px; color:#9ba0b3; font-weight:500; }
+  .next-draw .date{ font-family:'Space Grotesk'; font-weight:700; font-size:26px; margin-top:8px; }
+  .next-draw .fine{ font-size:13px; color:#9ba0b3; margin-top:14px; line-height:1.55; }
+  .next-draw .fine a{ color:#fff; text-decoration:underline; }
+
+  .participate-list{ margin-top:28px; display:flex; flex-direction:column; gap:12px; }
+  .participate-list li{ display:flex; gap:12px; align-items:flex-start; font-size:14.5px; color:#d7d9e3; list-style:none; }
+  .participate-list .n{ font-family:'Space Grotesk'; font-weight:700; font-size:13px; color:var(--ml-yellow); flex:none; width:20px; }
+
+  /* ---------- BENEFITS ---------- */
+  .benefits-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+  @media(max-width:860px){ .benefits-grid{ grid-template-columns:1fr 1fr; } }
+  @media(max-width:520px){ .benefits-grid{ grid-template-columns:1fr; } }
+  .benefit{
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--radius-md);
+    padding:26px; box-shadow:var(--shadow);
+  }
+  .benefit .icon{
+    width:40px;height:40px; border-radius:11px; display:flex; align-items:center; justify-content:center;
+    background:#eef1ff; margin-bottom:16px;
+  }
+  .benefit .icon svg{ width:20px;height:20px; color:var(--blue); }
+  .benefit h3{ font-size:16px; font-weight:600; }
+  .benefit p{ margin-top:8px; font-size:14px; color:var(--ink-soft); line-height:1.55; }
+
+  /* ---------- TESTIMONIALS ---------- */
+  .testi-warning{
+    font-size:13px; color:var(--ink-soft); background:#fff8e6; border:1px solid #f2e3ad;
+    border-radius:10px; padding:12px 16px; margin-bottom:32px;
+  }
+  .testi-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+  @media(max-width:860px){ .testi-grid{ grid-template-columns:1fr; } }
+  .testi{
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--radius-md);
+    padding:26px; box-shadow:var(--shadow);
+  }
+  .testi p{ font-size:15px; color:var(--ink); line-height:1.6; }
+  .testi .who{ margin-top:16px; font-size:13.5px; color:var(--ink-soft); font-weight:600; }
+  .placeholder-badge{
+    display:inline-block; margin-top:12px; font-size:11.5px; font-weight:600; color:#9a7a00;
+    background:#fff3cf; padding:3px 9px; border-radius:6px;
+  }
+
+  /* ---------- FAQ ---------- */
+  .faq-list{ max-width:760px; }
+  .faq-item{ border-bottom:1px solid var(--line); }
+  .faq-q{
+    width:100%; text-align:left; background:none; border:none; cursor:pointer;
+    padding:22px 0; display:flex; justify-content:space-between; align-items:center; gap:16px;
+    font-family:'Space Grotesk'; font-size:16.5px; font-weight:600; color:var(--ink);
+  }
+  .faq-q svg{ width:18px; height:18px; flex:none; transition:transform .18s; color:var(--ink-soft); }
+  .faq-item[open] .faq-q svg{ transform:rotate(45deg); }
+  .faq-a{ padding:0 0 22px; font-size:15px; color:var(--ink-soft); line-height:1.65; max-width:64ch; }
+  details.faq-item > summary{ list-style:none; }
+  details.faq-item > summary::-webkit-details-marker{ display:none; }
+
+  /* ---------- FINAL CTA ---------- */
+  .final-cta{
+    text-align:center; background:var(--surface); border:1px solid var(--line);
+    border-radius:var(--radius-lg); padding:72px 28px; box-shadow:var(--shadow);
+  }
+  .final-cta h2{ font-size:clamp(26px,3.4vw,38px); }
+  .final-cta p{ margin-top:14px; color:var(--ink-soft); font-size:16.5px; }
+  .final-cta .btn-primary{ width:auto; margin:28px auto 0; padding:15px 34px; display:inline-block; }
+
+  /* ---------- FOOTER ---------- */
+  footer{ border-top:1px solid var(--line); padding:64px 0 40px; }
+  .footer-grid{ display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:40px; }
+  @media(max-width:760px){ .footer-grid{ grid-template-columns:1fr 1fr; } }
+  .footer-grid h4{ font-size:13.5px; font-weight:600; color:var(--ink); margin-bottom:14px; }
+  .footer-grid ul{ list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px; }
+  .footer-grid a{ font-size:14px; color:var(--ink-soft); text-decoration:none; }
+  .footer-grid a:hover{ color:var(--ink); }
+  .footer-note{
+    margin-top:52px; padding-top:28px; border-top:1px solid var(--line);
+    font-size:12.5px; color:#9aa0b0; line-height:1.7;
+  }
+
+  .sr-only{ position:absolute; width:1px;height:1px; overflow:hidden; clip:rect(0 0 0 0); }
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <div class="wrap">
+    <div class="logo">
+      <svg class="logo-mark" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="26" height="26" rx="7" fill="#12141C"/>
+        <path d="M8 13.5C8 11 9.8 9.2 12.2 9.2H14" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+        <path d="M18 12.5C18 15 16.2 16.8 13.8 16.8H12" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+        <circle cx="8.4" cy="13.5" r="1.6" fill="#FFD100"/>
+        <circle cx="17.6" cy="12.5" r="1.6" fill="#FFD100"/>
+      </svg>
+      Linkfay
+    </div>
+    <nav class="nav-links">
+      <a href="#conversor">Conversor</a>
+      <a href="#sorteio">Sorteio</a>
+      <a href="#faq">Perguntas frequentes</a>
+    </nav>
+    <button class="nav-cta" onclick="document.getElementById('conversor').scrollIntoView({behavior:'smooth'})">Converter link</button>
+  </div>
+</header>
+
+<!-- ============ HERO + CONVERSOR ============ -->
+<section class="hero" id="conversor">
+  <div class="wrap">
+    <div>
+      <span class="kicker"><span class="dot"></span> Promoção ativa · veja o regulamento</span>
+      <h1>Converta seu link.<br>Concorra a <span class="prize">R$500</span>.</h1>
+      <p class="lede">Cole o link de um produto do Mercado Livre e receba seu link convertido em segundos. Cada conversão válida vira uma participação na promoção, conforme o regulamento.</p>
+      <div class="trust-row">
+        <span><svg viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z" stroke="#4b4f5c" stroke-width="1.6"/></svg>Dados tratados com segurança</span>
+        <span><svg viewBox="0 0 24 24" fill="none"><path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z" stroke="#4b4f5c" stroke-width="1.6" stroke-linejoin="round"/></svg>Conversão em segundos</span>
+        <span><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#4b4f5c" stroke-width="1.6"/><path d="M8 12l3 3 5-6" stroke="#4b4f5c" stroke-width="1.6" stroke-linecap="round"/></svg>Feito para o Mercado Livre</span>
+      </div>
+    </div>
+
+    <div class="converter">
+      <div class="platform-badge">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#FFD100"/></svg>
+        Mercado Livre
+      </div>
+
+      <label class="field-label" for="link-input">Cole aqui o link do produto</label>
+      <div class="link-input-row">
+        <input type="url" id="link-input" class="link-input" placeholder="https://www.mercadolivre.com.br/produto/..." inputmode="url" autocomplete="off">
+      </div>
+      <p class="error-msg" id="error-msg">Esse link não parece ser do Mercado Livre. Confira e cole novamente.</p>
+
+      <button class="btn-primary" id="convert-btn" onclick="convertLink()">Converter link</button>
+
+      <div class="result" id="result">
+        <div class="ok-row">
+          <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#0d7a63" stroke-width="1.6"/><path d="M8 12l3 3 5-6" stroke="#0d7a63" stroke-width="1.6" stroke-linecap="round"/></svg>
+          Link convertido com sucesso
+        </div>
+        <div class="result-link-row">
+          <div class="result-link" id="result-link"></div>
+          <button class="copy-btn" onclick="copyLink()">Copiar</button>
+        </div>
+        <p class="promo-nudge">Participação registrada para o sorteio de R$500. <a href="#sorteio">Ver como funciona →</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COMO FUNCIONA ============ -->
+<section id="como-funciona">
+  <div class="wrap">
+    <div class="steps-head">
+      <div class="eyebrow">Como funciona</div>
+      <h2>Do link colado ao link pronto, em três passos.</h2>
+      <p>Não é preciso criar conta nem instalar nada. O processo inteiro acontece na mesma página.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step">
+        <div class="num">01</div>
+        <h3>Cole o link</h3>
+        <p>Copie o endereço do produto direto do app ou site do Mercado Livre e cole no campo.</p>
+      </div>
+      <div class="step">
+        <div class="num">02</div>
+        <h3>Converta</h3>
+        <p>O sistema identifica o link e gera automaticamente o link convertido correspondente.</p>
+      </div>
+      <div class="step">
+        <div class="num">03</div>
+        <h3>Copie e use</h3>
+        <p>Copie o novo link. Sua participação válida na promoção é registrada nesse momento.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SORTEIO ============ -->
+<section id="sorteio">
+  <div class="wrap">
+    <div class="sorteio">
+      <div class="sorteio-inner">
+        <div>
+          <span class="prize-tag">Prêmio do mês: <b>R$500,00</b></span>
+          <h2>Envie seu link. Participe.</h2>
+          <p class="lede">Quanto mais participações válidas você realizar, maiores podem ser suas chances, conforme o regulamento da promoção.</p>
+          <ul class="participate-list">
+            <li><span class="n">01</span>Cole o link do produto no Mercado Livre.</li>
+            <li><span class="n">02</span>Converta o link.</li>
+            <li><span class="n">03</span>Sua participação válida é registrada.</li>
+            <li><span class="n">04</span>Aguarde o resultado do próximo sorteio.</li>
+          </ul>
+        </div>
+        <div class="next-draw">
+          <div class="label">Próximo sorteio</div>
+          <div class="date" id="next-draw-date">1º de [mês/ano]</div>
+          <p class="fine">O sorteio é realizado no primeiro dia do mês subsequente ao período da promoção, conforme critérios de elegibilidade, apuração e divulgação descritos no regulamento. A promoção depende de autorização prévia nos termos da legislação federal aplicável a sorteios no Brasil (Lei nº 5.768/71 e regulamentação da SECAP/Ministério da Fazenda). <a href="#regulamento">Ler o regulamento completo →</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BENEFÍCIOS ============ -->
+<section id="beneficios">
+  <div class="wrap">
+    <div class="steps-head">
+      <div class="eyebrow">Por que usar</div>
+      <h2>Feito para ser rápido e direto ao ponto.</h2>
+    </div>
+    <div class="benefits-grid">
+      <div class="benefit">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z" stroke="#2f5dff" stroke-width="1.6"/></svg></div>
+        <h3>Seguro</h3>
+        <p>Seus dados e links são tratados com cuidado e em conformidade com a LGPD.</p>
+      </div>
+      <div class="benefit">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z" stroke="#2f5dff" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
+        <h3>Conversão rápida</h3>
+        <p>Converta seu link em poucos segundos, sem etapas desnecessárias.</p>
+      </div>
+      <div class="benefit">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.4 5.4L20 8l-4 4 1 6-5-3-5 3 1-6-4-4 5.6-.6L12 2z" stroke="#2f5dff" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
+        <h3>Participe da promoção</h3>
+        <p>Envie suas participações válidas e concorra ao prêmio, conforme o regulamento.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DEPOIMENTOS ============ -->
+<section id="depoimentos">
+  <div class="wrap">
+    <div class="steps-head">
+      <div class="eyebrow">Depoimentos</div>
+      <h2>Quem já participou</h2>
+    </div>
+    <p class="testi-warning">Conteúdo demonstrativo. Estes depoimentos são ilustrativos e devem ser substituídos por relatos reais de usuários antes da publicação do site.</p>
+    <div class="testi-grid">
+      <div class="testi">
+        <p>"Foi muito fácil converter meu link. Gostei bastante da ferramenta."</p>
+        <div class="who">— Maria</div>
+        <span class="placeholder-badge">Depoimento de exemplo</span>
+      </div>
+      <div class="testi">
+        <p>"Achei muito rápido e simples de usar."</p>
+        <div class="who">— João</div>
+        <span class="placeholder-badge">Depoimento de exemplo</span>
+      </div>
+      <div class="testi">
+        <p>"A plataforma ficou muito prática. Consigo transformar meus links em poucos segundos."</p>
+        <div class="who">— Ana</div>
+        <span class="placeholder-badge">Depoimento de exemplo</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="steps-head">
+      <div class="eyebrow">Dúvidas</div>
+      <h2>Perguntas frequentes</h2>
+    </div>
+    <div class="faq-list">
+      <details class="faq-item" open>
+        <summary class="faq-q">Como funciona a conversão?
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </summary>
+        <p class="faq-a">Você cola o link do produto do Mercado Livre e o sistema identifica automaticamente o link correspondente de afiliado. O link convertido fica pronto para copiar imediatamente.</p>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">Quais links posso converter?
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </summary>
+        <p class="faq-a">No momento, o Linkfay converte apenas links de produtos do Mercado Livre.</p>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">Como participo da promoção?
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </summary>
+        <p class="faq-a">Toda conversão de link válida gera automaticamente uma participação, conforme os critérios descritos no regulamento oficial.</p>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">Quantas participações posso realizar?
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </summary>
+        <p class="faq-a">O número de participações válidas por pessoa e os limites aplicáveis estão descritos no regulamento da promoção.</p>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">Quando acontece o sorteio?
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </summary>
+        <p class="faq-a">O sorteio ocorre no primeiro dia do mês subsequente ao encerramento do período de participação, conforme o regulamento.</p>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">Como o vencedor será informado?
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </summary>
+        <p class="faq-a">O ganhador será contatado pelos canais informados no regulamento, e o resultado será divulgado publicamente no site.</p>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">Onde posso consultar o regulamento?
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </summary>
+        <p class="faq-a">O regulamento completo, com critérios de elegibilidade, apuração e condições de recebimento do prêmio, está disponível no rodapé do site.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA FINAL ============ -->
+<section>
+  <div class="wrap">
+    <div class="final-cta">
+      <h2>Tem um link aí?</h2>
+      <p>Cole agora e faça sua participação.</p>
+      <button class="btn-primary" onclick="document.getElementById('conversor').scrollIntoView({behavior:'smooth'}); document.getElementById('link-input').focus();">Converter link</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="logo" style="margin-bottom:14px;">
+          <svg class="logo-mark" viewBox="0 0 26 26" fill="none"><rect width="26" height="26" rx="7" fill="#12141C"/><path d="M8 13.5C8 11 9.8 9.2 12.2 9.2H14" stroke="white" stroke-width="1.8" stroke-linecap="round"/><path d="M18 12.5C18 15 16.2 16.8 13.8 16.8H12" stroke="white" stroke-width="1.8" stroke-linecap="round"/><circle cx="8.4" cy="13.5" r="1.6" fill="#FFD100"/><circle cx="17.6" cy="12.5" r="1.6" fill="#FFD100"/></svg>
+          Linkfay
+        </div>
+        <p style="font-size:13.5px; color:var(--ink-soft); max-width:34ch;">Ferramenta de conversão de links de afiliados para o Mercado Livre.</p>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#termos" id="termos">Termos de Uso</a></li>
+          <li><a href="#privacidade" id="privacidade">Política de Privacidade</a></li>
+          <li><a href="#regulamento" id="regulamento">Regulamento da Promoção</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Produto</h4>
+        <ul>
+          <li><a href="#conversor">Conversor</a></li>
+          <li><a href="#sorteio">Sorteio</a></li>
+          <li><a href="#faq">Perguntas frequentes</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contato</h4>
+        <ul>
+          <li><a href="mailto:contato@linkfay.exemplo">contato@linkfay.exemplo</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-note">
+      Linkfay é uma ferramenta independente de conversão de links de afiliados. Mercado Livre é marca registrada de seu respectivo titular; esta promoção não é organizada, patrocinada ou endossada pela empresa, salvo autorização expressa em contrário. A realização de sorteios no Brasil depende de autorização prévia nos termos da Lei nº 5.768/71 e da regulamentação vigente da SECAP/Ministério da Fazenda — este site deve exibir o número de autorização e o regulamento completo antes de qualquer divulgação pública da promoção. O tratamento de dados pessoais segue a Lei Geral de Proteção de Dados (LGPD).
+    </div>
+  </div>
+</footer>
+
+<script>
+  /* ==========================================================
+     ESTADO E LÓGICA DO CONVERSOR (somente Mercado Livre)
+     ----------------------------------------------------------
+     IMPORTANTE: esta é uma demonstração de front-end.
+     Nenhuma chamada real à API de afiliados é feita aqui.
+     Os pontos marcados com "TODO(API)" indicam exatamente onde
+     a integração real precisa entrar antes da publicação.
+     ========================================================== */
+
+  const ML_CONFIG = {
+    domainPattern: /mercadolivre\.com|mercadolibre\.com|mlb\.com|meli\.com/i,
+    // TODO(API): substituir pelo seu identificador de afiliado real do Mercado Livre
+    affiliateParam: 'matt_word=SEU_ID_AFILIADO_ML'
+  };
+
+  function hideError(){ document.getElementById('error-msg').classList.remove('show'); }
+  function showError(){ document.getElementById('error-msg').classList.add('show'); }
+  function hideResult(){ document.getElementById('result').classList.remove('show'); }
+
+  function convertLink(){
+    const input = document.getElementById('link-input');
+    const raw = input.value.trim();
+    hideError();
+    hideResult();
+
+    if (!raw) { showError(); return; }
+
+    let url;
+    try {
+      url = new URL(raw);
+    } catch (e) {
+      showError();
+      return;
+    }
+
+    if (!ML_CONFIG.domainPattern.test(url.hostname)) {
+      showError();
+      return;
+    }
+
+    /* --------------------------------------------------------
+       TODO(API): esta é uma conversão de EXEMPLO (placeholder).
+       Antes de publicar, substitua este bloco pela chamada real
+       à API oficial do Programa de Afiliados do Mercado Livre
+       (ou seu link/short-link de afiliado gerado via painel).
+       O resultado abaixo apenas acrescenta um parâmetro de
+       identificação ao link original e NÃO gera comissão real.
+    -------------------------------------------------------- */
+    const separator = url.search ? '&' : '?';
+    const convertedUrl = raw + separator + ML_CONFIG.affiliateParam;
+
+    document.getElementById('result-link').textContent = convertedUrl;
+    document.getElementById('result').classList.add('show');
+
+    // TODO(API): registrar a participação válida no banco de dados
+    // da promoção aqui (endpoint de backend a ser criado).
+  }
+
+  function copyLink(){
+    const text = document.getElementById('result-link').textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.querySelector('.copy-btn');
+      const original = btn.textContent;
+      btn.textContent = 'Copiado!';
+      setTimeout(() => { btn.textContent = original; }, 1800);
+    });
+  }
+
+  // Próximo sorteio: primeiro dia do mês seguinte (placeholder de cálculo)
+  (function setNextDraw(){
+    const now = new Date();
+    const next = new Date(now.getFullYear(), now.getMonth() + 1, 1);
+    const months = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+    document.getElementById('next-draw-date').textContent = `1º de ${months[next.getMonth()]} de ${next.getFullYear()}`;
+  })();
+</script>
+</body>
+</html>
