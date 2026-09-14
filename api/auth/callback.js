@@ -1,4 +1,4 @@
-module.exports = (req, res) => {
+module.exports = (req, res) => { 
   const { code, error } = req.query;
 
   if (error) {
