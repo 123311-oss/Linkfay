@@ -15,20 +15,37 @@ module.exports = async (req, res) => {
     });
   }
 
-  try {
-    const response = await fetch("https://api.mercadolibre.com/oauth/token", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      body: new URLSearchParams({
-        grant_type: "authorization_code",
-        client_id: process.env.MELI_CLIENT_ID,
-        client_secret: process.env.MELI_CLIENT_SECRET,
-        code,
-        redirect_uri: "https://linkfay.vercel.app/api/auth/callback"
-      })
+  const cookies = req.headers.cookie || "";
+
+  const match = cookies.match(/meli_code_verifier=([^;]+)/);
+  const codeVerifier = match ? decodeURIComponent(match[1]) : null;
+
+  if (!codeVerifier) {
+    return res.status(400).json({
+      ok: false,
+      message: "code_verifier não encontrado."
     });
+  }
+
+  try {
+    const response = await fetch(
+      "https://api.mercadolibre.com/oauth/token",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: new URLSearchParams({
+          grant_type: "authorization_code",
+          client_id: process.env.MELI_CLIENT_ID,
+          client_secret: process.env.MELI_CLIENT_SECRET,
+          code,
+          redirect_uri:
+            "https://linkfay.vercel.app/api/auth/callback",
+          code_verifier: codeVerifier
+        })
+      }
+    );
 
     const data = await response.json();
 
@@ -49,7 +66,7 @@ module.exports = async (req, res) => {
   } catch (err) {
     return res.status(500).json({
       ok: false,
-      error: "Erro ao conectar com o Mercado Livre."
+      message: "Erro ao conectar com o Mercado Livre."
     });
   }
 };
