@@ -26,7 +26,7 @@ module.exports = (req, res) => {
 
     res.setHeader(
       "Set-Cookie",
-      meli_code_verifier=${encodeURIComponent(codeVerifier)}; Path=/; HttpOnly; Secure; SameSite=Lax
+      `meli_code_verifier=${encodeURIComponent(codeVerifier)}; Path=/; HttpOnly; Secure; SameSite=Lax`
     );
 
     res.writeHead(302, {
