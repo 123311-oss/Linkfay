@@ -1,3 +1,12 @@
+// NOVO: importa a biblioteca do Redis
+const { Redis } = require("@upstash/redis");
+
+// NOVO: conecta com o banco usando as variáveis que já existem na Vercel
+const redis = new Redis({
+  url: process.env.KV_REST_API_URL,
+  token: process.env.KV_REST_API_TOKEN
+});
+
 module.exports = async (req, res) => {
   const { code, error } = req.query;
 
@@ -55,6 +64,16 @@ module.exports = async (req, res) => {
         error: data
       });
     }
+
+    // NOVO: salva os tokens no Redis, usando o user_id como identificador
+    await redis.set(`meli:tokens:${data.user_id}`, {
+      access_token: data.access_token,
+      refresh_token: data.refresh_token,
+      user_id: data.user_id,
+      scope: data.scope,
+      expires_in: data.expires_in,
+      saved_at: Date.now()
+    });
 
     return res.status(200).json({
       ok: true,
